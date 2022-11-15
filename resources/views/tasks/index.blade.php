@@ -11,13 +11,15 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>メッセージ</th>
+                    <th>ステータス</th>
+                    <th>タスク</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($tasks as $task)
                 <tr>
                     <td><a class="link link-hover text-info" href="{{ route('tasks.show', $task->id) }}">{{ $task->id }}</a></td>
+                    <td>{{ $task->status }}</td>
                     <td>{{ $task->content }}</td>
                 </tr>
                 @endforeach
@@ -25,5 +27,5 @@
         </table>
     @endif
     {{-- メッセージ作成ページへのリンク --}}
-    <a class="btn btn-primary" href="{{ route('tasks.create') }}">新規メッセージの投稿</a>
+    <a class="btn btn-primary" href="{{ route('tasks.create') }}">新規タスクの投稿</a>
 @endsection
