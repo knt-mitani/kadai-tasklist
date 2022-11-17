@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\TasksController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,24 +15,29 @@ use App\Http\Controllers\TasksController;
 |
 */
 
+// トップページ(ログイン前)
 Route::get('/', function () {
     return view('dashboard');
 });
 
-Route::get('/dashboard', function () {
+// ユーザー投稿画面
+Route::get('/tasklist', function () {
     return view('tasks.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('tasklist');
 
-Route::resource('tasks', TasksController::class);
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+
+
+
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';
 
+// ログイン後のみ機能する(authミドルウェア使用のため)
 Route::group(['middleware' => ['auth']], function() {
-    Route::resource('tasks', TasksController::class, ['only' => ['index', 'show']]);
+    Route::resource('tasks', TasksController::class);
 });
