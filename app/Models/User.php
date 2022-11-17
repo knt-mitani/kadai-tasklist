@@ -14,7 +14,8 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
-     *
+     *想定外のデータが代入されたパラメータを保存するのを防ぐ
+     * 
      * @var array<int, string>
      */
     protected $fillable = [
@@ -25,7 +26,8 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for serialization.
-     *
+     * パスワードなど秘匿しておきたいカラムを、モデルの $hidden に指定する
+     * 
      * @var array<int, string>
      */
     protected $hidden = [
