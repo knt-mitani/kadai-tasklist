@@ -8,6 +8,15 @@ use Auth;
 
 class TasksController extends Controller
 {
+    
+    private $task = null;
+    
+    # コンストラクタ
+    public function __construct()
+    {
+        $this->task = new Task;
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +24,12 @@ class TasksController extends Controller
      */
     public function index()
     {
+
         if(Auth::check()) {
             // メッセージ一覧を取得
-            $tasks = Task::all();
+            $tasks = $this->task
+                ->where('user_id', Auth::id())
+                ->get();
 
             return view('tasks.index', [
                 'tasks' => $tasks,    
@@ -34,11 +46,10 @@ class TasksController extends Controller
      */
     public function create()
     {
-        $task = new Task;
-        
+
         // メッセージ作成ビューを表示
         return view('tasks.create', [
-            'task' => $task,    
+            'task' => $this->task,    
         ]);
 
     }
@@ -58,11 +69,10 @@ class TasksController extends Controller
         ]);
 
         // メッセージ作成
-        $task = new Task;
-        $task->content = $request->content;
-        $task->status = $request->status;
-        $task->user_id = $request->user_id;
-        $task->save();
+        $this->task->content = $request->content;
+        $this->task->status = $request->status;
+        $this->task->user_id = $request->user_id;
+        $this->task->save();
 
         return redirect('/');
         
@@ -76,8 +86,10 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        $task = Task::findOrFail($id);
-        
+        $task = $this->task
+            ->where('id', $id)
+            ->first();
+
         return view('tasks.show', [
             'task' => $task,
         ]);
@@ -91,7 +103,9 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        $task = Task::findOrFail($id);
+        $task = $this->task
+            ->where('id', $id)
+            ->first();
         
         return view('tasks.edit', [
             'task' => $task,    
@@ -113,7 +127,9 @@ class TasksController extends Controller
             'content' => 'required'
         ]);
 
-        $task = Task::findOrFail($id);
+        $task = $this->task
+            ->where('id', $id)
+            ->first();
         $task->status = $request->status;
         $task->content = $request->content;
         $task->save();
@@ -129,10 +145,9 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        $task = Task::findOrFail($id);
-        
-        $task->delete();
-        
+        $task = $this->task
+            ->where('id', $id)
+            ->delete();
         return redirect('/');
     }
 }
