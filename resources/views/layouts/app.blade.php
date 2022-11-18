@@ -9,6 +9,7 @@
     </head>    
     
     <body>
+
         {{-- ナビゲーションバー --}}
         @include('commons.navbar')
 
@@ -18,7 +19,7 @@
             @include('commons.error_tasks')
 
             @yield('content')
-
         </div>
+
     </body>
 </html>

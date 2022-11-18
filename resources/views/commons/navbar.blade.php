@@ -5,7 +5,7 @@
             <h1><a class="btn btn-ghost normal-case text-xl" href="/">TaskList</a></h1>
         </div>
 
-        <div>
+        <div="flex-none">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <!--メニュー表示(レスポンシブでないとき)-->
