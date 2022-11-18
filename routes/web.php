@@ -21,13 +21,7 @@ Route::get('/', function () {
 });
 
 // ユーザー投稿画面
-Route::get('/tasklist', function () {
-    return view('tasks.index');
-})->middleware(['auth'])->name('tasklist');
-
-
-
-
+Route::get('/tasklist', [TasksController::class, 'index'])->middleware(['auth'])->name('tasklist');
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,8 +29,12 @@ Route::get('/tasklist', function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
+//Route::put('/tasks/{id}', [TasksController::class, 'update'])->name('tasks.update');
+// Route::delete('tasks/{id}', [TasksController::class, 'destroy'])->name('tasks.destroy');
+
 require __DIR__.'/auth.php';
 
+//Route::resource('tasks', TasksController::class);
 // ログイン後のみ機能する(authミドルウェア使用のため)
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('tasks', TasksController::class);

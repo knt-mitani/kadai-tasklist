@@ -14,7 +14,7 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
-     *想定外のデータが代入されたパラメータを保存するのを防ぐ
+     * 想定外のデータが代入されたパラメータを保存するのを防ぐ
      * 
      * @var array<int, string>
      */
@@ -43,4 +43,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    /**
+     * このユーザが所有するタスク。（ Taskモデルとの関係を定義）
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }

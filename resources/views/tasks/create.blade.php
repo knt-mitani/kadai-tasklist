@@ -7,9 +7,8 @@
     </div>
 
     <div class="flex justify-center">
-        <form method="POST" action="{{ route('tasks.store') }}" class="w-1/2">
+        <form method="POST" action="{{ route('tasks.index') }}" class="w-1/2">
             @csrf
-
                 <div class="form-control my-4">
                     <label for="status" class="label">
                         <span class="label-text">ステータス:</span>
@@ -29,6 +28,3 @@
     </div>
 
 @endsection
-
-
-

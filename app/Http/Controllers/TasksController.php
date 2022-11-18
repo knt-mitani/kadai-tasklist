@@ -51,10 +51,11 @@ class TasksController extends Controller
             'status' => 'required|max:10',
             'content' => 'required'
         ]);
-        
+
         // メッセージ作成
         $task = new Task;
-        $task->content = $request->content;
+        $task->content = $request->content();
+        $task->status = $request->status();
         $task->save();
 
         return redirect('/');

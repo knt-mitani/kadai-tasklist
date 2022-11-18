@@ -5,9 +5,8 @@
     <div class="prose ml-4">
         <h2>id: {{ $task->id }} のタスク編集ページ</h2>
     </div>
-
     <div class="flex justify-center">
-        <form method="POST" action="{{ route('tasks.update', $task->id) }}" class="w-1/2">
+          <form method="POST" action="{{ route('tasks.update', $task->id) }}" class="w-1/2">
             @csrf
             @method('PUT')
 
@@ -28,5 +27,4 @@
             <button type="submit" class="btn btn-primary btn-outline">更新</button>
         </form>
     </div>
-
 @endsection
