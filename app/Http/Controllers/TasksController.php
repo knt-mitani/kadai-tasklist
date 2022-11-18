@@ -53,14 +53,15 @@ class TasksController extends Controller
     {
         // バリデーション
         $request->validate([
+            'content' => 'required',
             'status' => 'required|max:10',
-            'content' => 'required'
         ]);
 
         // メッセージ作成
         $task = new Task;
-        $task->content = $request->content();
-        $task->status = $request->status();
+        $task->content = $request->content;
+        $task->status = $request->status;
+        $task->user_id = $request->user_id;
         $task->save();
 
         return redirect('/');
