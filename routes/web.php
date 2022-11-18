@@ -16,12 +16,14 @@ use App\Http\Controllers\TasksController;
 */
 
 // トップページ(ログイン前)
-Route::get('/', function () {
-    return view('dashboard');
-});
+// Route::get('/', function () {
+//     return view('dashboard');
+// });
+
+Route::get('/', [TasksController::class, 'index']);
 
 // ユーザー投稿画面
-Route::get('/tasklist', [TasksController::class, 'index'])->middleware(['auth'])->name('tasklist');
+//Route::get('/tasklist', [TasksController::class, 'index'])->middleware(['auth'])->name('tasklist');
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
