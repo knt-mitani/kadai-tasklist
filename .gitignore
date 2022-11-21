@@ -5,14 +5,9 @@
 /storage/*.key
 /vendor
 .env
-.env.backup
 .env.production
-.env_fly
-.env_dev
-.env___fly
-_back_fly.toml
-fly.1.toml
 .phpunit.result.cache
+fly.toml
 Homestead.json
 Homestead.yaml
 auth.json
