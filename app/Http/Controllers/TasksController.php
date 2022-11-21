@@ -88,8 +88,14 @@ class TasksController extends Controller
     {
         $task = $this->task
             ->where('id', $id)
+            ->where('user_id', Auth::id())
             ->first();
 
+        // nullならばindexメソッドに飛ばす
+        if(is_null($task)) {
+            return redirect('/');
+        }
+        
         return view('tasks.show', [
             'task' => $task,
         ]);
@@ -105,7 +111,13 @@ class TasksController extends Controller
     {
         $task = $this->task
             ->where('id', $id)
+            ->where('user_id', Auth::id())
             ->first();
+            
+        // nullならばindexメソッドに飛ばす
+        if(is_null($task)) {
+            return redirect('/');
+        }
         
         return view('tasks.edit', [
             'task' => $task,    
@@ -129,7 +141,9 @@ class TasksController extends Controller
 
         $task = $this->task
             ->where('id', $id)
+            ->where('user_id', Auth::id())
             ->first();
+
         $task->status = $request->status;
         $task->content = $request->content;
         $task->save();
@@ -147,6 +161,7 @@ class TasksController extends Controller
     {
         $task = $this->task
             ->where('id', $id)
+            ->where('user_id', Auth::id())
             ->delete();
         return redirect('/');
     }
